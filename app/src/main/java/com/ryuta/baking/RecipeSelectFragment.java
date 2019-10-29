@@ -9,12 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.ryuta.baking.viewmodels.RecipeSelectViewModel;
+
 public class RecipeSelectFragment extends Fragment {
+
+    private RecipeSelectViewModel viewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_recipe_select, container, false);
+        View v = inflater.inflate(R.layout.fragment_recipe_select, container, false);
+
+        viewModel = RecipeSelectViewModel.get(this);
+
+        return v;
     }
 
     @Override
