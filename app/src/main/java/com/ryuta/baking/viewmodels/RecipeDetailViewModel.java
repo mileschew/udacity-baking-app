@@ -10,7 +10,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.ryuta.baking.models.Recipe;
+import com.ryuta.baking.models.Step;
 import com.ryuta.baking.util.RecipeDetailViewModelProviderFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeDetailViewModel extends AndroidViewModel {
     private int recipeId;
@@ -30,7 +34,11 @@ public class RecipeDetailViewModel extends AndroidViewModel {
 
     private void fetchData() {
         //TODO temp data
-        Recipe sample = new Recipe(recipeId, "Mac & Cheese", null, null, 4, "");
+        List<Step> sampleSteps = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            sampleSteps.add(new Step(i, "Step number " + (i + 1),"","",""));
+        }
+        Recipe sample = new Recipe(recipeId, "Mac & Cheese", null, sampleSteps, 4, "");
         recipeLiveData.postValue(sample);
     }
 

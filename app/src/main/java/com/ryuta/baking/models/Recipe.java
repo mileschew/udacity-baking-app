@@ -1,18 +1,20 @@
 package com.ryuta.baking.models;
 
+import java.util.List;
+
 public class Recipe {
     private int id;
     private String name;
-    private Ingredient[] ingredients;
-    private Step[] steps;
+    private List<Ingredient> ingredients;
+    private List<Step> steps;
     private int servings;
     private String image;
 
     public Recipe(
             int id,
             String name,
-            Ingredient[] ingredients,
-            Step[] steps,
+            List<Ingredient> ingredients,
+            List<Step> steps,
             int servings,
             String image
     ) {
@@ -40,19 +42,19 @@ public class Recipe {
         this.name = name;
     }
 
-    public Ingredient[] getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Ingredient[] ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public Step[] getSteps() {
+    public List<Step> getSteps() {
         return steps;
     }
 
-    public void setSteps(Step[] steps) {
+    public void setSteps(List<Step> steps) {
         this.steps = steps;
     }
 
