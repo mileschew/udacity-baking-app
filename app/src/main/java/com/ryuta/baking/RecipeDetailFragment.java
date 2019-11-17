@@ -1,5 +1,6 @@
 package com.ryuta.baking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.ryuta.baking.models.Recipe;
 import com.ryuta.baking.viewmodels.RecipeDetailViewModel;
 
 public class RecipeDetailFragment extends Fragment {
+
+    public static final String KEY_ID = "id";
 
     private TextView titleView;
 
@@ -44,7 +47,11 @@ public class RecipeDetailFragment extends Fragment {
         });
     }
 
-    public static RecipeDetailFragment newInstance() {
-        return new RecipeDetailFragment();
+    public static RecipeDetailFragment newInstance(int recipeId) {
+        Bundle args = new Bundle();
+        args.putInt(KEY_ID, recipeId);
+        RecipeDetailFragment fragment = new RecipeDetailFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 }

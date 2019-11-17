@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ryuta.baking.activities.MainActivity;
 import com.ryuta.baking.util.RecipeListAdapter;
 import com.ryuta.baking.viewmodels.RecipeSelectViewModel;
 
@@ -23,6 +24,7 @@ public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.
     private RecipeSelectViewModel viewModel;
     private RecipeListAdapter adapter;
     private RecyclerView recyclerView;
+    private OnRecipeSelectedListener onRecipeSelectedListener;
 
     @Nullable
     @Override
@@ -37,6 +39,8 @@ public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.
         RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(),  1);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
+
+        onRecipeSelectedListener = (MainActivity) getActivity();
 
         return v;
     }
@@ -60,6 +64,10 @@ public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.
 
     @Override
     public void onRecipeClicked(int position) {
-        Toast.makeText(getContext(), "clicked recipe " + position, Toast.LENGTH_SHORT).show();
+        onRecipeSelectedListener.onRecipeSelected(position);
+    }
+
+    public interface OnRecipeSelectedListener {
+        void onRecipeSelected(int recipeId);
     }
 }
