@@ -4,14 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
+import com.ryuta.baking.models.Recipe;
 import com.ryuta.baking.viewmodels.RecipeDetailViewModel;
 
 public class RecipeDetailFragment extends Fragment {
+
+    private TextView titleView;
 
     private RecipeDetailViewModel viewModel;
 
@@ -20,7 +25,9 @@ public class RecipeDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
-        viewModel = RecipeDetailViewModel.get(this);
+        viewModel = RecipeDetailViewModel.get(this, 3);
+
+        titleView = v.findViewById(R.id.tv_recipe_detail_title);
 
         return v;
     }
@@ -28,6 +35,13 @@ public class RecipeDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        viewModel.getRecipeDetails().observe(this, new Observer<Recipe>() {
+            @Override
+            public void onChanged(Recipe recipe) {
+                titleView.setText(recipe.getName());
+            }
+        });
     }
 
     public static RecipeDetailFragment newInstance() {

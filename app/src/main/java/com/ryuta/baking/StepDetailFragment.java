@@ -20,7 +20,7 @@ public class StepDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_step_detail, container, false);
 
-        viewModel = RecipeDetailViewModel.get(this);
+        viewModel = RecipeDetailViewModel.get(this, 3); //TODO temp id
 
         return v;
     }
