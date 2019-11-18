@@ -1,15 +1,15 @@
 package com.ryuta.baking.util;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ryuta.baking.R;
+import com.ryuta.baking.databinding.RecyclerviewItemStepBinding;
 import com.ryuta.baking.models.Step;
 
 import java.util.List;
@@ -27,10 +27,9 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
     @NonNull
     @Override
     public StepViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-
-        View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_item_step, parent, false);
-        return new StepViewHolder(view, onStepClickedListener);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        RecyclerviewItemStepBinding binding = DataBindingUtil.inflate(inflater, R.layout.recyclerview_item_step, parent, false);
+        return new StepViewHolder(binding, onStepClickedListener);
     }
 
     @Override
@@ -44,12 +43,12 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
     }
 
     public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView stepTitleView;
+        private RecyclerviewItemStepBinding binding;
         private OnStepClickedListener onStepClickedListener;
 
-        public StepViewHolder(@NonNull View itemView, OnStepClickedListener onStepClickedListener) {
-            super(itemView);
-            stepTitleView = itemView.findViewById(R.id.tv_step_item_title);
+        public StepViewHolder(RecyclerviewItemStepBinding binding, OnStepClickedListener onStepClickedListener) {
+            super(binding.getRoot());
+            this.binding = binding;
             this.onStepClickedListener = onStepClickedListener;
             itemView.setOnClickListener(this);
         }
@@ -60,7 +59,7 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
         }
 
         public void bind(String title) {
-            stepTitleView.setText(title);
+            binding.tvStepItemTitle.setText(title);
         }
     }
 

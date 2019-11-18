@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/tv_recipe_item_title"
-        android:text="@string/recipe_item_title_error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Mac and Cheese"/>
-</LinearLayout>
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_recipe_item_title"
+            android:text="@string/recipe_item_title_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Mac and Cheese" />
+    </LinearLayout>
+</layout>

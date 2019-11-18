@@ -7,22 +7,22 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import com.ryuta.baking.databinding.FragmentStepDetailBinding;
 import com.ryuta.baking.viewmodels.RecipeDetailViewModel;
 
 public class StepDetailFragment extends Fragment {
 
-    private RecipeDetailViewModel viewModel;
+    private FragmentStepDetailBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_step_detail, container, false);
-
-        viewModel = RecipeDetailViewModel.get(this, 3); //TODO temp id
-
-        return v;
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_step_detail, container, false);
+        binding.setViewModel(RecipeDetailViewModel.get(this, 3)); //TODO temp id
+        return binding.getRoot();
     }
 
     @Override
