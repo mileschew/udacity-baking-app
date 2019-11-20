@@ -30,7 +30,7 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_detail, container, false);
-        binding.setViewModel(RecipeDetailViewModel.get(this, 3));
+        binding.setViewModel(RecipeDetailViewModel.get(this, getArguments().getInt(KEY_ID, -1)));
 
         // init layout manager
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());

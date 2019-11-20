@@ -20,6 +20,7 @@ public class RecipeDetailViewModel extends AndroidViewModel {
     private int recipeId;
 
     private MutableLiveData<Recipe> recipeLiveData = new MutableLiveData<>();
+    private MutableLiveData<Step> currentStepLiveData = new MutableLiveData<>();
 
     public RecipeDetailViewModel(@NonNull Application application, int recipeId) {
         super(application);
@@ -30,6 +31,24 @@ public class RecipeDetailViewModel extends AndroidViewModel {
 
     public LiveData<Recipe> getRecipeDetails() {
         return recipeLiveData;
+    }
+
+    public LiveData<Step> getCurrentStep() {
+        return currentStepLiveData;
+    }
+
+    public void goToPreviousStep() {
+    }
+
+    public void goToNextStep() {
+    }
+
+    public boolean hasPreviousStep() {
+        return true;
+    }
+
+    public boolean hasNextStep() {
+        return true;
     }
 
     private void fetchData() {

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryuta.baking.R;
 import com.ryuta.baking.RecipeDetailFragment;
+import com.ryuta.baking.StepDetailFragment;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
@@ -25,7 +26,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             recipeId = intent.getIntExtra(KEY_ID, -1);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.recipe_detail_container, RecipeDetailFragment.newInstance(recipeId))
+                .replace(R.id.recipe_detail_container, StepDetailFragment.newInstance(recipeId))
                 .commit();
     }
 }
