@@ -1,6 +1,7 @@
 package com.ryuta.baking;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ryuta.baking.activities.MainActivity;
 import com.ryuta.baking.databinding.FragmentRecipeSelectBinding;
+import com.ryuta.baking.models.Recipe;
 import com.ryuta.baking.util.RecipeListAdapter;
 import com.ryuta.baking.viewmodels.RecipeSelectViewModel;
 
 import java.util.List;
 
 public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.OnRecipeClickListener {
+
+    private static final String TAG = RecipeSelectFragment.class.getName();
 
     private RecipeListAdapter adapter;
     private FragmentRecipeSelectBinding binding;
@@ -46,9 +50,13 @@ public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.getViewModel().getRecipes().observe(this, new Observer<List<String>>() {
+        binding.getViewModel().getRecipes().observe(this, new Observer<List<Recipe>>() {
             @Override
-            public void onChanged(List<String> recipes) {
+            public void onChanged(List<Recipe> recipes) {
+                if (recipes == null) {
+                    Log.e(TAG, "Recipe list is null");
+                    return;
+                }
                 adapter = new RecipeListAdapter(recipes, RecipeSelectFragment.this);
                 binding.rvRecipes.setAdapter(adapter);
             }

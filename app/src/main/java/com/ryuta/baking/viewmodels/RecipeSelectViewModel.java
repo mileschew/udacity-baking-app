@@ -9,28 +9,26 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 
-import java.util.ArrayList;
+import com.ryuta.baking.models.Recipe;
+import com.ryuta.baking.util.StringUtil;
+
 import java.util.List;
 
 public class RecipeSelectViewModel extends AndroidViewModel {
 
-    private List<String> recipes;
+    private List<Recipe> recipes;
 
-    private MutableLiveData<List<String>> recipesLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Recipe>> recipesLiveData = new MutableLiveData<>();
 
     public RecipeSelectViewModel(@NonNull Application application) {
         super(application);
 
-        //TODO test data
-        recipes = new ArrayList<>();
-        recipes.add("burger");
-        recipes.add("pizza");
-        recipes.add("cereal");
+        recipes = StringUtil.getRecipesFromJson(application.getBaseContext());
 
         recipesLiveData.setValue(recipes);
     }
 
-    public LiveData<List<String>> getRecipes() {
+    public LiveData<List<Recipe>> getRecipes() {
         return recipesLiveData;
     }
 

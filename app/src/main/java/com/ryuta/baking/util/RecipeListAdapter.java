@@ -10,15 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ryuta.baking.R;
 import com.ryuta.baking.databinding.RecyclerviewItemRecipeBinding;
+import com.ryuta.baking.models.Recipe;
 
 import java.util.List;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 
-    private List<String> recipes;
+    private List<Recipe> recipes;
     private OnRecipeClickListener onRecipeClickListener;
 
-    public RecipeListAdapter(List<String> recipes, OnRecipeClickListener onRecipeClickListener) {
+    public RecipeListAdapter(List<Recipe> recipes, OnRecipeClickListener onRecipeClickListener) {
         this.recipes = recipes;
         this.onRecipeClickListener = onRecipeClickListener;
     }
@@ -33,7 +34,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
-        holder.bind(recipes.get(position));
+        holder.bind(recipes.get(position).getName());
     }
 
     @Override
