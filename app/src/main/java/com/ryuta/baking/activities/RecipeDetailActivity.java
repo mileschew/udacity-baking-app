@@ -25,8 +25,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         if (intent != null)
             selectedRecipe = (Recipe) intent.getSerializableExtra(KEY_RECIPE);
 
-        boolean isTwoPaneLayoout = findViewById(R.id.step_detail_container) != null;
-        if (isTwoPaneLayoout) {
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        if (isTablet) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.recipe_detail_container, RecipeDetailFragment.newInstance(selectedRecipe))
                     .replace(R.id.step_detail_container, StepDetailFragment.newInstance(selectedRecipe))

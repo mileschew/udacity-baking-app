@@ -25,6 +25,7 @@ import java.util.List;
 public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.OnRecipeClickListener {
 
     private static final String TAG = RecipeSelectFragment.class.getName();
+    private static final String KEY_COLUMNS = "columns";
 
     private RecipeListAdapter adapter;
     private FragmentRecipeSelectBinding binding;
@@ -63,8 +64,12 @@ public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.
         });
     }
 
-    public static RecipeSelectFragment newInstance() {
-        return new RecipeSelectFragment();
+    public static RecipeSelectFragment newInstance(int columns) {
+        Bundle args = new Bundle();
+        args.putInt(KEY_COLUMNS, columns);
+        RecipeSelectFragment fragment = new RecipeSelectFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
