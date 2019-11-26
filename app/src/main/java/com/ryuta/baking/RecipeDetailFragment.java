@@ -21,7 +21,7 @@ import com.ryuta.baking.viewmodels.RecipeDetailViewModel;
 
 public class RecipeDetailFragment extends Fragment implements StepListAdapter.OnStepClickedListener {
 
-    public static final String KEY_RECIPE = "recipe";
+    private static final String KEY_RECIPE = "recipe";
 
     private StepListAdapter adapter;
     private FragmentRecipeDetailBinding binding;

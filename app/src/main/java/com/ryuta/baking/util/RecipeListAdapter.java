@@ -46,14 +46,14 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         private RecyclerviewItemRecipeBinding binding;
         private OnRecipeClickListener clickListener;
 
-        public RecipeViewHolder(RecyclerviewItemRecipeBinding binding, OnRecipeClickListener clickListener) {
+        RecipeViewHolder(RecyclerviewItemRecipeBinding binding, OnRecipeClickListener clickListener) {
             super(binding.getRoot());
             this.binding = binding;
             this.clickListener = clickListener;
             itemView.setOnClickListener(this);
         }
 
-        public void bind(String title) {
+        void bind(String title) {
             binding.tvRecipeItemTitle.setText(title);
         }
 

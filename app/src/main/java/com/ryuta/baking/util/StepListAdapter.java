@@ -46,20 +46,20 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
         private RecyclerviewItemStepBinding binding;
         private OnStepClickedListener onStepClickedListener;
 
-        public StepViewHolder(RecyclerviewItemStepBinding binding, OnStepClickedListener onStepClickedListener) {
+        StepViewHolder(RecyclerviewItemStepBinding binding, OnStepClickedListener onStepClickedListener) {
             super(binding.getRoot());
             this.binding = binding;
             this.onStepClickedListener = onStepClickedListener;
             itemView.setOnClickListener(this);
         }
 
+        void bind(String title) {
+            binding.tvStepItemTitle.setText(title);
+        }
+
         @Override
         public void onClick(View v) {
             onStepClickedListener.onStepClicked(getAdapterPosition());
-        }
-
-        public void bind(String title) {
-            binding.tvStepItemTitle.setText(title);
         }
     }
 

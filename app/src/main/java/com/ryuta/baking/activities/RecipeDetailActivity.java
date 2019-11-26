@@ -15,13 +15,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     public static final String KEY_RECIPE = "recipe";
 
-    private Recipe selectedRecipe = null;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
 
+        Recipe selectedRecipe = null;
         Intent intent = getIntent();
         if (intent != null)
             selectedRecipe = (Recipe) intent.getSerializableExtra(KEY_RECIPE);

@@ -16,7 +16,7 @@ import com.ryuta.baking.viewmodels.RecipeDetailViewModel;
 
 public class StepDetailFragment extends Fragment {
 
-    public static final String KEY_RECIPE = "recipe";
+    private static final String KEY_RECIPE = "recipe";
 
     private FragmentStepDetailBinding binding;
 
