@@ -9,12 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ryuta.baking.R;
 import com.ryuta.baking.RecipeDetailFragment;
 import com.ryuta.baking.StepDetailFragment;
+import com.ryuta.baking.models.Recipe;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
-    public static final String KEY_ID = "id";
+    public static final String KEY_RECIPE = "recipe";
 
-    private int recipeId = -1;
+    private Recipe selectedRecipe = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,10 +24,18 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null)
-            recipeId = intent.getIntExtra(KEY_ID, -1);
+            selectedRecipe = (Recipe) intent.getSerializableExtra(KEY_RECIPE);
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.recipe_detail_container, StepDetailFragment.newInstance(recipeId))
-                .commit();
+        boolean isTwoPaneLayoout = findViewById(R.id.step_detail_container) != null;
+        if (isTwoPaneLayoout) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.recipe_detail_container, RecipeDetailFragment.newInstance(selectedRecipe))
+                    .replace(R.id.step_detail_container, StepDetailFragment.newInstance(selectedRecipe))
+                    .commit();
+        } else {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.recipe_detail_container, RecipeDetailFragment.newInstance(selectedRecipe))
+                    .commit();
+        }
     }
 }

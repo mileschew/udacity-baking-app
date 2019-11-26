@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.ryuta.baking.R;
 import com.ryuta.baking.RecipeSelectFragment;
+import com.ryuta.baking.models.Recipe;
 
 public class MainActivity extends AppCompatActivity implements RecipeSelectFragment.OnRecipeSelectedListener {
 
@@ -17,9 +18,9 @@ public class MainActivity extends AppCompatActivity implements RecipeSelectFragm
     }
 
     @Override
-    public void onRecipeSelected(int recipeId) {
+    public void onRecipeSelected(Recipe selected) {
         Intent intent = new Intent(this, RecipeDetailActivity.class);
-        intent.putExtra(RecipeDetailActivity.KEY_ID, recipeId);
+        intent.putExtra(RecipeDetailActivity.KEY_RECIPE, selected);
         startActivity(intent);
     }
 }

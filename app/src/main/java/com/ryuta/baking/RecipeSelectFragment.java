@@ -69,10 +69,10 @@ public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.
 
     @Override
     public void onRecipeClicked(int position) {
-        onRecipeSelectedListener.onRecipeSelected(position);
+        onRecipeSelectedListener.onRecipeSelected(binding.getViewModel().getRecipeAt(position));
     }
 
     public interface OnRecipeSelectedListener {
-        void onRecipeSelected(int recipeId);
+        void onRecipeSelected(Recipe selected);
     }
 }

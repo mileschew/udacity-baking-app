@@ -20,16 +20,19 @@ public class RecipeSelectViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Recipe>> recipesLiveData = new MutableLiveData<>();
 
+    public LiveData<List<Recipe>> getRecipes() {
+        return recipesLiveData;
+    }
+
     public RecipeSelectViewModel(@NonNull Application application) {
         super(application);
 
         recipes = StringUtil.getRecipesFromJson(application.getBaseContext());
-
         recipesLiveData.setValue(recipes);
     }
 
-    public LiveData<List<Recipe>> getRecipes() {
-        return recipesLiveData;
+    public Recipe getRecipeAt(int position) {
+        return recipes.get(position);
     }
 
     public static RecipeSelectViewModel get(Fragment fragment) {

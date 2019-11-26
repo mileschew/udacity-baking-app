@@ -21,7 +21,7 @@ import com.ryuta.baking.viewmodels.RecipeDetailViewModel;
 
 public class RecipeDetailFragment extends Fragment implements StepListAdapter.OnStepClickedListener {
 
-    public static final String KEY_ID = "id";
+    public static final String KEY_RECIPE = "recipe";
 
     private StepListAdapter adapter;
     private FragmentRecipeDetailBinding binding;
@@ -30,7 +30,7 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_detail, container, false);
-        binding.setViewModel(RecipeDetailViewModel.get(this, getArguments().getInt(KEY_ID, -1)));
+        binding.setViewModel(RecipeDetailViewModel.get(this, (Recipe) getArguments().getSerializable(KEY_RECIPE)));
 
         // init layout manager
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
@@ -54,9 +54,9 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
         });
     }
 
-    public static RecipeDetailFragment newInstance(int recipeId) {
+    public static RecipeDetailFragment newInstance(Recipe recipe) {
         Bundle args = new Bundle();
-        args.putInt(KEY_ID, recipeId);
+        args.putSerializable(KEY_RECIPE, recipe);
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         fragment.setArguments(args);
         return fragment;

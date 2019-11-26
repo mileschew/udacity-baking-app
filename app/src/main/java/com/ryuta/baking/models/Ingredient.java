@@ -1,6 +1,8 @@
 package com.ryuta.baking.models;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
     private int quantity;
     private String measure;
     private String ingredient;

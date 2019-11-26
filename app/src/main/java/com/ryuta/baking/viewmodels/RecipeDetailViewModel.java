@@ -17,16 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeDetailViewModel extends AndroidViewModel {
-    private int recipeId;
+    private Recipe recipe;
 
     private MutableLiveData<Recipe> recipeLiveData = new MutableLiveData<>();
     private MutableLiveData<Step> currentStepLiveData = new MutableLiveData<>();
 
-    public RecipeDetailViewModel(@NonNull Application application, int recipeId) {
+    public RecipeDetailViewModel(@NonNull Application application, Recipe recipe) {
         super(application);
-        this.recipeId = recipeId;
-
-        fetchData();
+        this.recipe = recipe;
+        recipeLiveData.postValue(recipe);
     }
 
     public LiveData<Recipe> getRecipeDetails() {
@@ -51,18 +50,8 @@ public class RecipeDetailViewModel extends AndroidViewModel {
         return true;
     }
 
-    private void fetchData() {
-        //TODO temp data
-        List<Step> sampleSteps = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            sampleSteps.add(new Step(i, "Step number " + (i + 1),"","",""));
-        }
-        Recipe sample = new Recipe(recipeId, "Mac & Cheese", null, sampleSteps, 4, "");
-        recipeLiveData.postValue(sample);
-    }
-
-    public static RecipeDetailViewModel get(Fragment fragment, int recipeId) {
-        RecipeDetailViewModelProviderFactory factory = new RecipeDetailViewModelProviderFactory(fragment.getActivity().getApplication(), recipeId);
+    public static RecipeDetailViewModel get(Fragment fragment, Recipe recipe) {
+        RecipeDetailViewModelProviderFactory factory = new RecipeDetailViewModelProviderFactory(fragment.getActivity().getApplication(), recipe);
         return ViewModelProviders.of(fragment, factory).get(RecipeDetailViewModel.class);
     }
 }
