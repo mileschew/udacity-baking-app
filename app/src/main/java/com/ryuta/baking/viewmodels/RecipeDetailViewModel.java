@@ -3,7 +3,7 @@ package com.ryuta.baking.viewmodels;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,11 +13,9 @@ import com.ryuta.baking.models.Recipe;
 import com.ryuta.baking.models.Step;
 import com.ryuta.baking.util.RecipeDetailViewModelProviderFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class RecipeDetailViewModel extends AndroidViewModel {
     private Recipe recipe;
+    private int currentStepNumber;
 
     private MutableLiveData<Recipe> recipeLiveData = new MutableLiveData<>();
     private MutableLiveData<Step> currentStepLiveData = new MutableLiveData<>();
@@ -32,26 +30,48 @@ public class RecipeDetailViewModel extends AndroidViewModel {
         return recipeLiveData;
     }
 
+    public void loadFirstStep() {
+        currentStepNumber = 0;
+        refreshStep();
+    }
+
+    public void selectStep(int position) {
+        currentStepNumber = position;
+        refreshStep();
+    }
+
     public LiveData<Step> getCurrentStep() {
         return currentStepLiveData;
     }
 
     public void goToPreviousStep() {
+        if (hasPreviousStep()) {
+            currentStepNumber--;
+            refreshStep();
+        }
     }
 
     public void goToNextStep() {
+        if (hasNextStep()) {
+            currentStepNumber++;
+            refreshStep();
+        }
     }
 
     public boolean hasPreviousStep() {
-        return true;
+        return currentStepNumber > 0;
     }
 
     public boolean hasNextStep() {
-        return true;
+        return currentStepNumber < (recipe.getSteps().size() - 1);
     }
 
-    public static RecipeDetailViewModel get(Fragment fragment, Recipe recipe) {
-        RecipeDetailViewModelProviderFactory factory = new RecipeDetailViewModelProviderFactory(fragment.getActivity().getApplication(), recipe);
+    private void refreshStep() {
+        currentStepLiveData.postValue(recipe.getSteps().get(currentStepNumber));
+    }
+
+    public static RecipeDetailViewModel get(FragmentActivity fragment, Recipe recipe) {
+        RecipeDetailViewModelProviderFactory factory = new RecipeDetailViewModelProviderFactory(fragment.getApplication(), recipe);
         return ViewModelProviders.of(fragment, factory).get(RecipeDetailViewModel.class);
     }
 }

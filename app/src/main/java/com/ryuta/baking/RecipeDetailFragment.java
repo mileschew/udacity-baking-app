@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,7 +29,7 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_detail, container, false);
-        binding.setViewModel(RecipeDetailViewModel.get(this, (Recipe) getArguments().getSerializable(KEY_RECIPE)));
+        binding.setViewModel(RecipeDetailViewModel.get(getActivity(), (Recipe) getArguments().getSerializable(KEY_RECIPE)));
 
         // init layout manager
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
@@ -50,6 +49,8 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
                 binding.tvRecipeDetailTitle.setText(recipe.getName());
                 adapter = new StepListAdapter(recipe.getSteps(), RecipeDetailFragment.this);
                 binding.rvSteps.setAdapter(adapter);
+
+                binding.getViewModel().loadFirstStep();
             }
         });
     }
@@ -64,6 +65,6 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
 
     @Override
     public void onStepClicked(int position) {
-        Toast.makeText(getContext(), "Step clicked: " + position, Toast.LENGTH_SHORT).show();
+        binding.getViewModel().selectStep(position);
     }
 }
