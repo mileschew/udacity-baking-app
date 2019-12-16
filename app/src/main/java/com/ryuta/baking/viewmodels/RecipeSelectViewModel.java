@@ -3,7 +3,7 @@ package com.ryuta.baking.viewmodels;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -35,7 +35,7 @@ public class RecipeSelectViewModel extends AndroidViewModel {
         return recipes.get(position);
     }
 
-    public static RecipeSelectViewModel get(Fragment fragment) {
-        return ViewModelProviders.of(fragment).get(RecipeSelectViewModel.class);
+    public static RecipeSelectViewModel get(FragmentActivity fragmentActivity) {
+        return ViewModelProviders.of(fragmentActivity).get(RecipeSelectViewModel.class);
     }
 }

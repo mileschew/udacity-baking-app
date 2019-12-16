@@ -1,22 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout
-        android:id="@+id/recipe_detail_container"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"/>
+    <data>
 
-    <View
-        android:background="@color/colorPrimaryDark"
-        android:layout_width="2dp"
-        android:layout_height="match_parent"/>
+    </data>
 
-    <FrameLayout
-        android:id="@+id/step_detail_container"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/recipe_detail_container"
+            android:layout_width="200dp"
+            android:layout_height="match_parent" />
+
+        <View
+            android:background="@color/colorPrimaryDark"
+            android:layout_width="2dp"
+            android:layout_height="match_parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <FrameLayout
+                android:id="@+id/step_detail_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <Button
+                    android:id="@+id/btn_prev"
+                    style="@style/step_detail_button"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/step_detail_button_previous"
+                    android:onClick="onPreviousButtonClicked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/btn_next"
+                    style="@style/step_detail_button"
+                    android:text="@string/step_detail_button_next"
+                    android:onClick="onNextButtonClicked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</layout>

@@ -35,7 +35,7 @@ public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_select, container, false);
-        binding.setViewModel(RecipeSelectViewModel.get(this));
+        binding.setViewModel(RecipeSelectViewModel.get(getActivity()));
 
         // init layout manager
         RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(),  1);

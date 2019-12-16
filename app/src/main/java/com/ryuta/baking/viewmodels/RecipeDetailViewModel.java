@@ -20,6 +20,9 @@ public class RecipeDetailViewModel extends AndroidViewModel {
     private MutableLiveData<Recipe> recipeLiveData = new MutableLiveData<>();
     private MutableLiveData<Step> currentStepLiveData = new MutableLiveData<>();
 
+    public RecipeDetailViewModel(@NonNull Application application) {
+        super(application);
+    }
     public RecipeDetailViewModel(@NonNull Application application, Recipe recipe) {
         super(application);
         this.recipe = recipe;
@@ -70,8 +73,12 @@ public class RecipeDetailViewModel extends AndroidViewModel {
         currentStepLiveData.postValue(recipe.getSteps().get(currentStepNumber));
     }
 
-    public static RecipeDetailViewModel get(FragmentActivity fragment, Recipe recipe) {
-        RecipeDetailViewModelProviderFactory factory = new RecipeDetailViewModelProviderFactory(fragment.getApplication(), recipe);
-        return ViewModelProviders.of(fragment, factory).get(RecipeDetailViewModel.class);
+    public static RecipeDetailViewModel get(FragmentActivity fragmentActivity) {
+        return ViewModelProviders.of(fragmentActivity).get(RecipeDetailViewModel.class);
+    }
+
+    public static RecipeDetailViewModel get(FragmentActivity fragmentActivity, Recipe recipe) {
+        RecipeDetailViewModelProviderFactory factory = new RecipeDetailViewModelProviderFactory(fragmentActivity.getApplication(), recipe);
+        return ViewModelProviders.of(fragmentActivity, factory).get(RecipeDetailViewModel.class);
     }
 }

@@ -2,7 +2,6 @@ package com.ryuta.baking.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.ryuta.baking.R;
@@ -19,19 +18,17 @@ public class MainActivity extends AppCompatActivity implements RecipeSelectFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        int columCount = NUMBER_COLUMNS_PHONE;
+        int columnCount = NUMBER_COLUMNS_PHONE;
         if (getResources().getBoolean(R.bool.isTablet))     // add more columns if using a tablet
-            columCount = NUMBER_COLUMNS_TABLET;
+            columnCount = NUMBER_COLUMNS_TABLET;
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.recipe_select_container, RecipeSelectFragment.newInstance(columCount))
+                .replace(R.id.recipe_select_container, RecipeSelectFragment.newInstance(columnCount))
                 .commit();
     }
 
     @Override
     public void onRecipeSelected(Recipe selected) {
-        Intent intent = new Intent(this, RecipeDetailActivity.class);
-        intent.putExtra(RecipeDetailActivity.KEY_RECIPE, selected);
-        startActivity(intent);
+        RecipeDetailActivity.navigateTo(this, selected);
     }
 }

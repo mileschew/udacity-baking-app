@@ -20,16 +20,15 @@ import com.ryuta.baking.viewmodels.RecipeDetailViewModel;
 
 public class RecipeDetailFragment extends Fragment implements StepListAdapter.OnStepClickedListener {
 
-    private static final String KEY_RECIPE = "recipe";
-
     private StepListAdapter adapter;
     private FragmentRecipeDetailBinding binding;
+    private StepListAdapter.OnStepClickedListener onStepClickedListener;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_detail, container, false);
-        binding.setViewModel(RecipeDetailViewModel.get(getActivity(), (Recipe) getArguments().getSerializable(KEY_RECIPE)));
+        binding.setViewModel(RecipeDetailViewModel.get(getActivity()));
 
         // init layout manager
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
@@ -55,9 +54,12 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
         });
     }
 
-    public static RecipeDetailFragment newInstance(Recipe recipe) {
+    public void setOnStepClickListener(StepListAdapter.OnStepClickedListener onStepClickedListener) {
+        this.onStepClickedListener = onStepClickedListener;
+    }
+
+    public static RecipeDetailFragment newInstance() {
         Bundle args = new Bundle();
-        args.putSerializable(KEY_RECIPE, recipe);
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         fragment.setArguments(args);
         return fragment;
@@ -66,5 +68,7 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
     @Override
     public void onStepClicked(int position) {
         binding.getViewModel().selectStep(position);
+        if (onStepClickedListener != null)
+            onStepClickedListener.onStepClicked(position);
     }
 }
