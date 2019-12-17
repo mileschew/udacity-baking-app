@@ -43,14 +43,23 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepListA
                         .replace(R.id.recipe_detail_container, RecipeDetailFragment.newInstance())
                         .replace(R.id.step_detail_container, StepDetailFragment.newInstance())
                         .commit();
-                //TODO re-test if anything broke in tablet layout
                 binding.getViewModel().getCurrentStep().observe(this, new Observer<Step>() {
                     @Override
                     public void onChanged(Step step) {
-                        binding.btnPrev.setVisibility(
-                                binding.getViewModel().hasPreviousStep() ? View.VISIBLE : View.GONE);
-                        binding.btnNext.setVisibility(
-                                binding.getViewModel().hasNextStep() ? View.VISIBLE : View.GONE);
+                        if (binding.getViewModel().hasPreviousStep()) {
+                            binding.btnPrev.setVisibility(View.VISIBLE);
+                            binding.viewNavSpace.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.viewNavSpace.setVisibility(View.GONE);
+                            binding.btnPrev.setVisibility(View.GONE);
+                        }
+                        if (binding.getViewModel().hasNextStep()) {
+                            binding.btnNext.setVisibility(View.VISIBLE);
+                            binding.btnFin.setVisibility(View.GONE);
+                        } else {
+                            binding.btnNext.setVisibility(View.GONE);
+                            binding.btnFin.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
             } else {
@@ -69,6 +78,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepListA
 
     public void onNextButtonClicked(View v) {
         binding.getViewModel().goToNextStep();
+    }
+
+    public void onButtonFinishClicked(View v) {
+        finish();
     }
 
     public static void navigateTo(Context context, Recipe recipe) {

@@ -35,17 +35,22 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <Button
                     android:id="@+id/btn_prev"
                     style="@style/step_detail_button"
-                    android:layout_marginStart="12dp"
                     android:text="@string/step_detail_button_previous"
                     android:onClick="onPreviousButtonClicked"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
+
+                <View
+                    android:id="@+id/view_nav_space"
+                    android:layout_width="12dp"
+                    android:layout_height="match_parent"/>
 
                 <Button
                     android:id="@+id/btn_next"
@@ -55,6 +60,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/btn_fin"
+                    style="@style/step_detail_button"
+                    android:text="@string/step_detail_button_finish"
+                    android:onClick="onButtonFinishClicked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="gone"/>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

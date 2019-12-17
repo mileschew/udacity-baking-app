@@ -27,8 +27,6 @@ public class StepDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_step_detail);
 
         Recipe selectedRecipe = null;
@@ -49,10 +47,20 @@ public class StepDetailActivity extends AppCompatActivity {
             binding.getViewModel().getCurrentStep().observe(this, new Observer<Step>() {
                 @Override
                 public void onChanged(Step step) {
-                    binding.btnPrev.setVisibility(
-                            binding.getViewModel().hasPreviousStep() ? View.VISIBLE : View.GONE);
-                    binding.btnNext.setVisibility(
-                            binding.getViewModel().hasNextStep() ? View.VISIBLE : View.GONE);
+                    if (binding.getViewModel().hasPreviousStep()) {
+                        binding.btnPrev.setVisibility(View.VISIBLE);
+                        binding.viewNavSpace.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.viewNavSpace.setVisibility(View.GONE);
+                        binding.btnPrev.setVisibility(View.GONE);
+                    }
+                    if (binding.getViewModel().hasNextStep()) {
+                        binding.btnNext.setVisibility(View.VISIBLE);
+                        binding.btnFin.setVisibility(View.GONE);
+                    } else {
+                        binding.btnNext.setVisibility(View.GONE);
+                        binding.btnFin.setVisibility(View.VISIBLE);
+                    }
                 }
             });
         }
@@ -64,6 +72,10 @@ public class StepDetailActivity extends AppCompatActivity {
 
     public void onNextButtonClicked(View v) {
         binding.getViewModel().goToNextStep();
+    }
+
+    public void onButtonFinishClicked(View v) {
+        finish();
     }
 
     public static void navigateTo(Context context, Recipe recipe, int currentStep) {
