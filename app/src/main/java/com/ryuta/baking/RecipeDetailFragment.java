@@ -11,16 +11,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.ryuta.baking.databinding.FragmentRecipeDetailBinding;
 import com.ryuta.baking.models.Recipe;
+import com.ryuta.baking.util.IngredientAdapter;
 import com.ryuta.baking.util.StepListAdapter;
 import com.ryuta.baking.viewmodels.RecipeDetailViewModel;
 
 public class RecipeDetailFragment extends Fragment implements StepListAdapter.OnStepClickedListener {
 
-    private StepListAdapter adapter;
     private FragmentRecipeDetailBinding binding;
     private StepListAdapter.OnStepClickedListener onStepClickedListener;
 
@@ -31,8 +30,10 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
         binding.setViewModel(RecipeDetailViewModel.get(getActivity()));
 
         // init layout manager
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
-        binding.rvSteps.setLayoutManager(manager);
+        binding.rvIngredients.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvIngredients.setHasFixedSize(true);
+        binding.rvIngredients.setNestedScrollingEnabled(false);
+        binding.rvSteps.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvSteps.setHasFixedSize(true);
 
         return binding.getRoot();
@@ -46,8 +47,10 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
             @Override
             public void onChanged(Recipe recipe) {
                 binding.tvRecipeDetailTitle.setText(recipe.getName());
-                adapter = new StepListAdapter(recipe.getSteps(), RecipeDetailFragment.this);
-                binding.rvSteps.setAdapter(adapter);
+
+                binding.rvIngredients.setAdapter(new IngredientAdapter(recipe.getIngredients(), getContext()));
+                binding.rvSteps.setAdapter(
+                        new StepListAdapter(recipe.getSteps(), RecipeDetailFragment.this));
 
                 binding.getViewModel().loadFirstStep();
             }
