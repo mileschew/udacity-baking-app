@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import com.google.android.exoplayer2.ExoPlayer;
 import com.ryuta.baking.databinding.FragmentStepDetailBinding;
 import com.ryuta.baking.models.Step;
 import com.ryuta.baking.util.MediaUtil;
@@ -19,6 +20,7 @@ import com.ryuta.baking.viewmodels.RecipeDetailViewModel;
 public class StepDetailFragment extends Fragment {
 
     private FragmentStepDetailBinding binding;
+    private ExoPlayer videoPlayer;
 
     @Nullable
     @Override
@@ -38,10 +40,26 @@ public class StepDetailFragment extends Fragment {
             public void onChanged(Step step) {
                 binding.tvDescription.setText(step.getDescription());
 
+                if (videoPlayer != null) {
+                    videoPlayer.stop();
+                }
+
                 attemptLoadThumbnail(step.getThumbnailURL());
                 attemptLoadVideo(step.getVideoURL());
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        videoPlayer.stop(false);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        videoPlayer.release();
     }
 
     public static StepDetailFragment newInstance() {
@@ -51,7 +69,7 @@ public class StepDetailFragment extends Fragment {
         return fragment;
     }
 
-    private void attemptLoadThumbnail(String url) {
+    private void attemptLoadThumbnail(String url) {     // if there's a thumbnail provided, load it and show
         if (url == null || url.isEmpty()) {
             binding.ivThumbnail.setVisibility(View.GONE);
             return;
@@ -60,12 +78,12 @@ public class StepDetailFragment extends Fragment {
         binding.ivThumbnail.setVisibility(View.VISIBLE);
     }
 
-    private void attemptLoadVideo(String url) {
+    private void attemptLoadVideo(String url) {         // if there's a video, load it and show
         if (url == null || url.isEmpty()) {
-            binding.ivVideo.setVisibility(View.GONE);
+            binding.videoPlayer.setVisibility(View.GONE);
             return;
         }
-        MediaUtil.loadVideo(binding.ivVideo, url);
-        binding.ivVideo.setVisibility(View.VISIBLE);
+        videoPlayer = MediaUtil.loadVideo(getContext(), binding.videoPlayer, url, false);
+        binding.videoPlayer.setVisibility(View.VISIBLE);
     }
 }
