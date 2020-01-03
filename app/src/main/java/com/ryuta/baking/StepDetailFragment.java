@@ -20,7 +20,7 @@ import com.ryuta.baking.viewmodels.RecipeDetailViewModel;
 public class StepDetailFragment extends Fragment {
 
     private FragmentStepDetailBinding binding;
-    private ExoPlayer videoPlayer;
+    private ExoPlayer exoPlayer;
 
     @Nullable
     @Override
@@ -38,13 +38,13 @@ public class StepDetailFragment extends Fragment {
         binding.getViewModel().getCurrentStep().observe(getViewLifecycleOwner(), new Observer<Step>() {
             @Override
             public void onChanged(Step step) {
-                binding.tvDescription.setText(step.getDescription());
-
-                if (videoPlayer != null) {
-                    videoPlayer.stop();
+                if (exoPlayer != null) {
+                    exoPlayer.stop();
                 }
-
-                attemptLoadThumbnail(step.getThumbnailURL());
+                if (!getResources().getBoolean(R.bool.isLandscape)) {
+                    binding.tvDescription.setText(step.getDescription());
+                    attemptLoadThumbnail(step.getThumbnailURL());
+                }
                 attemptLoadVideo(step.getVideoURL());
             }
         });
@@ -53,13 +53,15 @@ public class StepDetailFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        videoPlayer.stop(false);
+        if (exoPlayer != null)
+            exoPlayer.stop(false);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        videoPlayer.release();
+        if (exoPlayer != null)
+            exoPlayer.release();
     }
 
     public static StepDetailFragment newInstance() {
@@ -80,10 +82,10 @@ public class StepDetailFragment extends Fragment {
 
     private void attemptLoadVideo(String url) {         // if there's a video, load it and show
         if (url == null || url.isEmpty()) {
-            binding.videoPlayer.setVisibility(View.GONE);
+            binding.viewVideoPlayer.setVisibility(View.GONE);
             return;
         }
-        videoPlayer = MediaUtil.loadVideo(getContext(), binding.videoPlayer, url, false);
-        binding.videoPlayer.setVisibility(View.VISIBLE);
+        exoPlayer = MediaUtil.loadVideo(getContext(), binding.viewVideoPlayer, url, false);
+        binding.viewVideoPlayer.setVisibility(View.VISIBLE);
     }
 }

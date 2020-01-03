@@ -44,25 +44,33 @@ public class StepDetailActivity extends AppCompatActivity {
                     .replace(R.id.step_detail_container, StepDetailFragment.newInstance())
                     .commit();
 
-            binding.getViewModel().getCurrentStep().observe(this, new Observer<Step>() {
-                @Override
-                public void onChanged(Step step) {
-                    if (binding.getViewModel().hasPreviousStep()) {
-                        binding.btnPrev.setVisibility(View.VISIBLE);
-                        binding.viewNavSpace.setVisibility(View.VISIBLE);
-                    } else {
-                        binding.viewNavSpace.setVisibility(View.GONE);
-                        binding.btnPrev.setVisibility(View.GONE);
+            if (getResources().getBoolean(R.bool.isLandscape)) {
+                // make fragment immersive full screen
+                binding.other.setVisibility(View.GONE);
+                getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+                getSupportActionBar().hide();
+            } else {
+                binding.getViewModel().getCurrentStep().observe(this, new Observer<Step>() {
+                    @Override
+                    public void onChanged(Step step) {
+                        if (binding.getViewModel().hasPreviousStep()) {
+                            binding.btnPrev.setVisibility(View.VISIBLE);
+                            binding.viewNavSpace.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.viewNavSpace.setVisibility(View.GONE);
+                            binding.btnPrev.setVisibility(View.GONE);
+                        }
+                        if (binding.getViewModel().hasNextStep()) {
+                            binding.btnNext.setVisibility(View.VISIBLE);
+                            binding.btnFin.setVisibility(View.GONE);
+                        } else {
+                            binding.btnNext.setVisibility(View.GONE);
+                            binding.btnFin.setVisibility(View.VISIBLE);
+                        }
                     }
-                    if (binding.getViewModel().hasNextStep()) {
-                        binding.btnNext.setVisibility(View.VISIBLE);
-                        binding.btnFin.setVisibility(View.GONE);
-                    } else {
-                        binding.btnNext.setVisibility(View.GONE);
-                        binding.btnFin.setVisibility(View.VISIBLE);
-                    }
-                }
-            });
+                });
+            }
         }
     }
 
