@@ -1,4 +1,4 @@
-package com.ryuta.baking;
+package com.ryuta.baking.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,12 +10,12 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.ryuta.baking.R;
 import com.ryuta.baking.databinding.FragmentRecipeDetailBinding;
 import com.ryuta.baking.models.Recipe;
-import com.ryuta.baking.util.IngredientAdapter;
-import com.ryuta.baking.util.StepListAdapter;
+import com.ryuta.baking.adapters.IngredientAdapter;
+import com.ryuta.baking.adapters.StepListAdapter;
 import com.ryuta.baking.viewmodels.RecipeDetailViewModel;
 
 public class RecipeDetailFragment extends Fragment implements StepListAdapter.OnStepClickedListener {
@@ -30,10 +30,8 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
         binding.setViewModel(RecipeDetailViewModel.get(getActivity()));
 
         // init layout manager
-        binding.rvIngredients.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvIngredients.setHasFixedSize(true);
         binding.rvIngredients.setNestedScrollingEnabled(false);
-        binding.rvSteps.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvSteps.setHasFixedSize(true);
 
         return binding.getRoot();
@@ -46,8 +44,6 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
         binding.getViewModel().getRecipeDetails().observe(this, new Observer<Recipe>() {
             @Override
             public void onChanged(Recipe recipe) {
-                binding.tvRecipeDetailTitle.setText(recipe.getName());
-
                 binding.rvIngredients.setAdapter(new IngredientAdapter(recipe.getIngredients(), getContext()));
                 binding.rvSteps.setAdapter(
                         new StepListAdapter(recipe.getSteps(), RecipeDetailFragment.this));

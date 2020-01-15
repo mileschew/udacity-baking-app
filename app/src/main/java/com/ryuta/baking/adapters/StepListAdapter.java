@@ -1,4 +1,4 @@
-package com.ryuta.baking.util;
+package com.ryuta.baking.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;

@@ -17,6 +17,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/divider"
             android:textAlignment="viewEnd"
+            android:textSize="@dimen/text_small"
             tools:text="Sugar"/>
 
         <View
@@ -36,6 +37,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/divider"
+            android:textSize="@dimen/text_small"
             tools:text="3 TBSP"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,12 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.ryuta.baking.R;
-import com.ryuta.baking.RecipeDetailFragment;
-import com.ryuta.baking.StepDetailFragment;
+import com.ryuta.baking.fragments.RecipeDetailFragment;
+import com.ryuta.baking.fragments.StepDetailFragment;
 import com.ryuta.baking.databinding.ActivityRecipeDetailBinding;
 import com.ryuta.baking.models.Recipe;
 import com.ryuta.baking.models.Step;
-import com.ryuta.baking.util.StepListAdapter;
+import com.ryuta.baking.adapters.StepListAdapter;
 import com.ryuta.baking.viewmodels.RecipeDetailViewModel;
 
 public class RecipeDetailActivity extends AppCompatActivity {

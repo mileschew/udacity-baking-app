@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 
 import com.ryuta.baking.R;
-import com.ryuta.baking.RecipeSelectFragment;
+import com.ryuta.baking.fragments.RecipeSelectFragment;
 import com.ryuta.baking.models.Recipe;
 
 public class MainActivity extends AppCompatActivity {

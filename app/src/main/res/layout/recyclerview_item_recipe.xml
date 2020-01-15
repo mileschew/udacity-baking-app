@@ -14,6 +14,8 @@
         <TextView
             android:id="@+id/tv_recipe_item_title"
             android:text="@string/recipe_item_title_error"
+            android:textSize="@dimen/text_large"
+            android:layout_margin="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Mac and Cheese" />

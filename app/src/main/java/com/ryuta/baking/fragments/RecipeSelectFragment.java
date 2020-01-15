@@ -1,4 +1,4 @@
-package com.ryuta.baking;
+package com.ryuta.baking.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,9 +14,10 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ryuta.baking.R;
 import com.ryuta.baking.databinding.FragmentRecipeSelectBinding;
 import com.ryuta.baking.models.Recipe;
-import com.ryuta.baking.util.RecipeListAdapter;
+import com.ryuta.baking.adapters.RecipeListAdapter;
 import com.ryuta.baking.viewmodels.RecipeSelectViewModel;
 
 import java.util.List;

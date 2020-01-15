@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 
 import com.ryuta.baking.R;
-import com.ryuta.baking.StepDetailFragment;
+import com.ryuta.baking.fragments.StepDetailFragment;
 import com.ryuta.baking.databinding.ActivityStepDetailBinding;
 import com.ryuta.baking.models.Recipe;
 import com.ryuta.baking.models.Step;

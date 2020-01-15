@@ -1,4 +1,4 @@
-package com.ryuta.baking;
+package com.ryuta.baking.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.google.android.exoplayer2.ExoPlayer;
+import com.ryuta.baking.R;
 import com.ryuta.baking.databinding.FragmentStepDetailBinding;
 import com.ryuta.baking.models.Step;
 import com.ryuta.baking.util.MediaUtil;
