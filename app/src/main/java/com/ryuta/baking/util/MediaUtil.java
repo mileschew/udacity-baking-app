@@ -15,6 +15,7 @@ import com.ryuta.baking.R;
 import com.squareup.picasso.Picasso;
 
 public class MediaUtil {
+
     public static void loadImage(ImageView imageView, String url) {
         Picasso.get()
                 .load(url)

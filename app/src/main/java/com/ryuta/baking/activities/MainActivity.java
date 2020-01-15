@@ -1,6 +1,7 @@
 package com.ryuta.baking.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
@@ -8,7 +9,7 @@ import com.ryuta.baking.R;
 import com.ryuta.baking.RecipeSelectFragment;
 import com.ryuta.baking.models.Recipe;
 
-public class MainActivity extends AppCompatActivity implements RecipeSelectFragment.OnRecipeSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final int NUMBER_COLUMNS_PHONE = 1;
     private static final int NUMBER_COLUMNS_TABLET = 3;
@@ -22,13 +23,16 @@ public class MainActivity extends AppCompatActivity implements RecipeSelectFragm
         if (getResources().getBoolean(R.bool.isTablet))     // add more columns if using a tablet
             columnCount = NUMBER_COLUMNS_TABLET;
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.recipe_select_container, RecipeSelectFragment.newInstance(columnCount))
-                .commit();
-    }
+        Fragment fragment = RecipeSelectFragment.newInstance(columnCount)
+                .setOnRecipeSelectedListener(new RecipeSelectFragment.OnRecipeSelectedListener() {
+                    @Override
+                    public void onRecipeSelected(Recipe selected) {
+                        RecipeDetailActivity.navigateTo(MainActivity.this, selected);
+                    }
+                });
 
-    @Override
-    public void onRecipeSelected(Recipe selected) {
-        RecipeDetailActivity.navigateTo(this, selected);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.recipe_select_container, fragment)
+                .commit();
     }
 }

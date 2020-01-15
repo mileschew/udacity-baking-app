@@ -14,23 +14,28 @@ import com.ryuta.baking.models.Step;
 import com.ryuta.baking.util.RecipeDetailViewModelProviderFactory;
 
 public class RecipeDetailViewModel extends AndroidViewModel {
-    private Recipe recipe;
-    private int currentStepNumber;
 
     private MutableLiveData<Recipe> recipeLiveData = new MutableLiveData<>();
+    public LiveData<Recipe> getRecipeDetails() {
+        return recipeLiveData;
+    }
+
     private MutableLiveData<Step> currentStepLiveData = new MutableLiveData<>();
+    public LiveData<Step> getCurrentStep() {
+        return currentStepLiveData;
+    }
+
+    private Recipe recipe;
+    private int currentStepNumber;
 
     public RecipeDetailViewModel(@NonNull Application application) {
         super(application);
     }
+
     public RecipeDetailViewModel(@NonNull Application application, Recipe recipe) {
         super(application);
         this.recipe = recipe;
         recipeLiveData.postValue(recipe);
-    }
-
-    public LiveData<Recipe> getRecipeDetails() {
-        return recipeLiveData;
     }
 
     public void loadFirstStep() {
@@ -41,10 +46,6 @@ public class RecipeDetailViewModel extends AndroidViewModel {
     public void selectStep(int position) {
         currentStepNumber = position;
         refreshStep();
-    }
-
-    public LiveData<Step> getCurrentStep() {
-        return currentStepLiveData;
     }
 
     public void goToPreviousStep() {

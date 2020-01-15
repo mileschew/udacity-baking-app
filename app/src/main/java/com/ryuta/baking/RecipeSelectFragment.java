@@ -14,7 +14,6 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ryuta.baking.activities.MainActivity;
 import com.ryuta.baking.databinding.FragmentRecipeSelectBinding;
 import com.ryuta.baking.models.Recipe;
 import com.ryuta.baking.util.RecipeListAdapter;
@@ -42,8 +41,6 @@ public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.
         binding.rvRecipes.setLayoutManager(manager);
         binding.rvRecipes.setHasFixedSize(true);
 
-        onRecipeSelectedListener = (MainActivity) getActivity();
-
         return binding.getRoot();
     }
 
@@ -64,17 +61,23 @@ public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.
         });
     }
 
+    @Override
+    public void onRecipeClicked(int position) {
+        if (onRecipeSelectedListener != null)
+            onRecipeSelectedListener.onRecipeSelected(binding.getViewModel().getRecipeAt(position));
+    }
+
+    public RecipeSelectFragment setOnRecipeSelectedListener(OnRecipeSelectedListener onRecipeSelectedListener) {
+        this.onRecipeSelectedListener = onRecipeSelectedListener;
+        return this;
+    }
+
     public static RecipeSelectFragment newInstance(int columns) {
         Bundle args = new Bundle();
         args.putInt(KEY_COLUMNS, columns);
         RecipeSelectFragment fragment = new RecipeSelectFragment();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onRecipeClicked(int position) {
-        onRecipeSelectedListener.onRecipeSelected(binding.getViewModel().getRecipeAt(position));
     }
 
     public interface OnRecipeSelectedListener {

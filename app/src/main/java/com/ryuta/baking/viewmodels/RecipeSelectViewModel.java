@@ -16,17 +16,15 @@ import java.util.List;
 
 public class RecipeSelectViewModel extends AndroidViewModel {
 
-    private List<Recipe> recipes;
-
     private MutableLiveData<List<Recipe>> recipesLiveData = new MutableLiveData<>();
-
     public LiveData<List<Recipe>> getRecipes() {
         return recipesLiveData;
     }
 
+    private List<Recipe> recipes;
+
     public RecipeSelectViewModel(@NonNull Application application) {
         super(application);
-
         recipes = StringUtil.getRecipesFromJson(application.getBaseContext());
         recipesLiveData.setValue(recipes);
     }

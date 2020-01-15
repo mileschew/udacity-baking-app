@@ -29,48 +29,32 @@ public class StepDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_step_detail);
 
-        Recipe selectedRecipe = null;
-        int currentStep = 0;
+        // Receive recipe and step details, pass to ViewModel
         Intent intent = getIntent();
-        if (intent != null) {
-            selectedRecipe = (Recipe) intent.getSerializableExtra(KEY_RECIPE);
-            currentStep = intent.getIntExtra(KEY_STEP, 0);
-        }
-
+        if (intent == null) return;     // error
+        Recipe selectedRecipe = (Recipe) intent.getSerializableExtra(KEY_RECIPE);
+        int currentStep = intent.getIntExtra(KEY_STEP, 0);
+        if (selectedRecipe == null) return;     // error
         binding.setViewModel(RecipeDetailViewModel.get(this, selectedRecipe));
-        if (selectedRecipe != null) {
-            binding.getViewModel().selectStep(currentStep);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.step_detail_container, StepDetailFragment.newInstance())
-                    .commit();
 
-            if (getResources().getBoolean(R.bool.isLandscape)) {
-                // make fragment immersive full screen
-                binding.other.setVisibility(View.GONE);
-                getWindow().getDecorView().setSystemUiVisibility(
-                        View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-                getSupportActionBar().hide();
-            } else {
-                binding.getViewModel().getCurrentStep().observe(this, new Observer<Step>() {
-                    @Override
-                    public void onChanged(Step step) {
-                        if (binding.getViewModel().hasPreviousStep()) {
-                            binding.btnPrev.setVisibility(View.VISIBLE);
-                            binding.viewNavSpace.setVisibility(View.VISIBLE);
-                        } else {
-                            binding.viewNavSpace.setVisibility(View.GONE);
-                            binding.btnPrev.setVisibility(View.GONE);
-                        }
-                        if (binding.getViewModel().hasNextStep()) {
-                            binding.btnNext.setVisibility(View.VISIBLE);
-                            binding.btnFin.setVisibility(View.GONE);
-                        } else {
-                            binding.btnNext.setVisibility(View.GONE);
-                            binding.btnFin.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
-            }
+        binding.getViewModel().selectStep(currentStep);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.step_detail_container, StepDetailFragment.newInstance())
+                .commit();
+
+        if (getResources().getBoolean(R.bool.isLandscape)) {    // Landscape layout
+            // make fragment immersive full screen
+            binding.other.setVisibility(View.GONE);
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+            getSupportActionBar().hide();
+        } else {        // Portrait layout
+            binding.getViewModel().getCurrentStep().observe(this, new Observer<Step>() {
+                @Override
+                public void onChanged(Step step) {
+                    showOrHideNavButtons();
+                }
+            });
         }
     }
 
@@ -84,6 +68,23 @@ public class StepDetailActivity extends AppCompatActivity {
 
     public void onButtonFinishClicked(View v) {
         finish();
+    }
+
+    private void showOrHideNavButtons() {
+        if (binding.getViewModel().hasPreviousStep()) {
+            binding.btnPrev.setVisibility(View.VISIBLE);
+            binding.viewNavSpace.setVisibility(View.VISIBLE);
+        } else {
+            binding.viewNavSpace.setVisibility(View.GONE);
+            binding.btnPrev.setVisibility(View.GONE);
+        }
+        if (binding.getViewModel().hasNextStep()) {
+            binding.btnNext.setVisibility(View.VISIBLE);
+            binding.btnFin.setVisibility(View.GONE);
+        } else {
+            binding.btnNext.setVisibility(View.GONE);
+            binding.btnFin.setVisibility(View.VISIBLE);
+        }
     }
 
     public static void navigateTo(Context context, Recipe recipe, int currentStep) {

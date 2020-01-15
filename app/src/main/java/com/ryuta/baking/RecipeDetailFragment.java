@@ -57,8 +57,16 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
         });
     }
 
-    public void setOnStepClickListener(StepListAdapter.OnStepClickedListener onStepClickedListener) {
+    @Override
+    public void onStepClicked(int position) {
+        binding.getViewModel().selectStep(position);
+        if (onStepClickedListener != null)
+            onStepClickedListener.onStepClicked(position);
+    }
+
+    public RecipeDetailFragment setOnStepClickListener(StepListAdapter.OnStepClickedListener onStepClickedListener) {
         this.onStepClickedListener = onStepClickedListener;
+        return this;
     }
 
     public static RecipeDetailFragment newInstance() {
@@ -66,12 +74,5 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onStepClicked(int position) {
-        binding.getViewModel().selectStep(position);
-        if (onStepClickedListener != null)
-            onStepClickedListener.onStepClicked(position);
     }
 }

@@ -64,13 +64,6 @@ public class StepDetailFragment extends Fragment {
             exoPlayer.release();
     }
 
-    public static StepDetailFragment newInstance() {
-        Bundle args = new Bundle();
-        StepDetailFragment fragment = new StepDetailFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     private void attemptLoadThumbnail(String url) {     // if there's a thumbnail provided, load it and show
         if (url == null || url.isEmpty()) {
             binding.ivThumbnail.setVisibility(View.GONE);
@@ -87,5 +80,12 @@ public class StepDetailFragment extends Fragment {
         }
         exoPlayer = MediaUtil.loadVideo(getContext(), binding.viewVideoPlayer, url, false);
         binding.viewVideoPlayer.setVisibility(View.VISIBLE);
+    }
+
+    public static StepDetailFragment newInstance() {
+        Bundle args = new Bundle();
+        StepDetailFragment fragment = new StepDetailFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 }
