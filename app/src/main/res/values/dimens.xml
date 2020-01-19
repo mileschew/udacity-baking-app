@@ -3,5 +3,8 @@
     <dimen name="text_small">14sp</dimen>
     <dimen name="text_medium">16sp</dimen>
     <dimen name="text_large">18sp</dimen>
+    <dimen name="margin_very_small">2dp</dimen>
+    <dimen name="margin_small">6dp</dimen>
+    <dimen name="margin_medium">10dp</dimen>
     <dimen name="divider_end">16dp</dimen>
 </resources>

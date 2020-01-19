@@ -36,7 +36,8 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     @Override
     public void onBindViewHolder(@NonNull IngredientViewHolder holder, int position) {
         Ingredient ingredient = ingredients.get(position);
-        holder.bind(ingredient.getIngredient(), String.valueOf(ingredient.getQuantity()), ingredient.getMeasure());
+        holder.bind(position, ingredient.getIngredient(),
+                String.valueOf(ingredient.getQuantity()), ingredient.getMeasure());
     }
 
     @Override
@@ -52,7 +53,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
             this.binding = binding;
         }
 
-        void bind(String name, String quantity, String measurement) {
+        void bind(int position, String name, String quantity, String measurement) {
+            if (position % 2 == 1)
+                binding.getRoot().setBackgroundColor(context.getColor(R.color.lightGray));
             binding.rvIngredientItemName.setText(name);
             binding.rvIngredientItemQuantityMeasurement.setText(
                     context.getString(R.string.ingredient_quantity_measurement_format, quantity, measurement));
