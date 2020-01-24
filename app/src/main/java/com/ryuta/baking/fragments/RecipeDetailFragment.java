@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import com.ryuta.baking.R;
 import com.ryuta.baking.databinding.FragmentRecipeDetailBinding;
@@ -33,6 +34,8 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.On
         binding.rvIngredients.setHasFixedSize(true);
         binding.rvIngredients.setNestedScrollingEnabled(false);
         binding.rvSteps.setHasFixedSize(true);
+        DividerItemDecoration decoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        binding.rvSteps.addItemDecoration(decoration);
 
         return binding.getRoot();
     }
