@@ -1,5 +1,6 @@
 package com.ryuta.baking.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ryuta.baking.R;
 import com.ryuta.baking.databinding.RecyclerviewItemRecipeBinding;
 import com.ryuta.baking.models.Recipe;
+import com.ryuta.baking.util.MediaUtil;
 
 import java.util.List;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 
     private List<Recipe> recipes;
+    private Context context;
     private OnRecipeClickListener onRecipeClickListener;
 
-    public RecipeListAdapter(List<Recipe> recipes, OnRecipeClickListener onRecipeClickListener) {
+    public RecipeListAdapter(List<Recipe> recipes, Context context, OnRecipeClickListener onRecipeClickListener) {
         this.recipes = recipes;
+        this.context = context;
         this.onRecipeClickListener = onRecipeClickListener;
     }
 
@@ -34,7 +38,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
-        holder.bind(recipes.get(position).getName());
+        holder.bind(recipes.get(position));
     }
 
     @Override
@@ -53,8 +57,11 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             itemView.setOnClickListener(this);
         }
 
-        void bind(String title) {
-            binding.tvRecipeItemTitle.setText(title);
+        void bind(Recipe recipe) {
+            binding.tvRecipeItemTitle.setText(recipe.getName());
+            String stepCount = String.valueOf(recipe.getSteps().size());
+            binding.tvRecipeItemSteps.setText(context.getString(R.string.recipe_item_step_count, stepCount));
+            MediaUtil.loadImage(binding.ivRecipeItemThumbnail, recipe.getImage(), R.drawable.pie);
         }
 
         @Override

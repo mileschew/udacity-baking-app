@@ -2,7 +2,10 @@
     <string name="app_name">Baking</string>
 
     <string name="recipe_item_title_error">no title</string>
+    <string name="recipe_item_step_error">0 Steps</string>
     <string name="step_item_title_error">no title</string>
+
+    <string name="recipe_item_step_count">%1$s Steps</string>
 
     <string name="ingredient_youll_need">You\'ll Need:</string>
     <string name="ingredient_quantity_measurement_format">%1$s %2$s</string>

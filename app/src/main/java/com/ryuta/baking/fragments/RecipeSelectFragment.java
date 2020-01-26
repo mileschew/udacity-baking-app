@@ -49,14 +49,14 @@ public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.getViewModel().getRecipes().observe(this, new Observer<List<Recipe>>() {
+        binding.getViewModel().getRecipes().observe(getViewLifecycleOwner(), new Observer<List<Recipe>>() {
             @Override
             public void onChanged(List<Recipe> recipes) {
                 if (recipes == null) {
                     Log.e(TAG, "Recipe list is null");
                     return;
                 }
-                adapter = new RecipeListAdapter(recipes, RecipeSelectFragment.this);
+                adapter = new RecipeListAdapter(recipes, getContext(), RecipeSelectFragment.this);
                 binding.rvRecipes.setAdapter(adapter);
             }
         });

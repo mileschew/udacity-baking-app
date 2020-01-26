@@ -6,5 +6,7 @@
     <dimen name="margin_very_small">2dp</dimen>
     <dimen name="margin_small">6dp</dimen>
     <dimen name="margin_medium">10dp</dimen>
+    <dimen name="margin_large">12dp</dimen>
+    <dimen name="margin_very_large">16dp</dimen>
     <dimen name="divider_end">16dp</dimen>
 </resources>
