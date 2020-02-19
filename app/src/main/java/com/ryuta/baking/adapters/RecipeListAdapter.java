@@ -59,8 +59,8 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
         void bind(Recipe recipe) {
             binding.tvRecipeItemTitle.setText(recipe.getName());
-            String stepCount = String.valueOf(recipe.getSteps().size());
-            binding.tvRecipeItemSteps.setText(context.getString(R.string.recipe_item_step_count, stepCount));
+            int stepCount = recipe.getSteps().size();
+            binding.tvRecipeItemSteps.setText(context.getString(R.string.recipe_item_step_count_format, stepCount));
             MediaUtil.loadImage(binding.ivRecipeItemThumbnail, recipe.getImage(), R.drawable.pie);
         }
 

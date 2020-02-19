@@ -1,15 +1,18 @@
 <resources>
     <string name="app_name">Baking</string>
 
+    <string name="recipe_select_title">Select a Recipe</string>
+
     <string name="recipe_item_title_error">no title</string>
     <string name="recipe_item_step_error">0 Steps</string>
     <string name="step_item_title_error">no title</string>
 
-    <string name="recipe_item_step_count">%1$s Steps</string>
+    <string name="recipe_item_step_count_format">%1$d Steps</string>
 
     <string name="ingredient_youll_need">You\'ll Need:</string>
-    <string name="ingredient_quantity_measurement_format">%1$s %2$s</string>
+    <string name="ingredient_quantity_measurement_format">%1$d %2$s</string>
 
+    <string name="step_detail_title_count_format">Step %1$d</string>
     <string name="step_detail_description_error">no description</string>
     <string name="step_detail_button_previous">Prev</string>
     <string name="step_detail_button_next">Next</string>

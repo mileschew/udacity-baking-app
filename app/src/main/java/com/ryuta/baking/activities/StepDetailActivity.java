@@ -23,6 +23,7 @@ public class StepDetailActivity extends AppCompatActivity {
     private static final String KEY_STEP = "step";
 
     private ActivityStepDetailBinding binding;
+    private int currentStep;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class StepDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent == null) return;     // error
         Recipe selectedRecipe = (Recipe) intent.getSerializableExtra(KEY_RECIPE);
-        int currentStep = intent.getIntExtra(KEY_STEP, 0);
+        currentStep = intent.getIntExtra(KEY_STEP, 0);
         if (selectedRecipe == null) return;     // error
         binding.setViewModel(RecipeDetailViewModel.get(this, selectedRecipe));
 
@@ -56,18 +57,38 @@ public class StepDetailActivity extends AppCompatActivity {
                 }
             });
         }
+
+        // Set up toolbar
+        updateTitle();
+        setSupportActionBar(binding.actionbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        binding.actionbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     public void onPreviousButtonClicked(View v) {
         binding.getViewModel().goToPreviousStep();
+        currentStep--;
+        updateTitle();
     }
 
     public void onNextButtonClicked(View v) {
         binding.getViewModel().goToNextStep();
+        currentStep++;
+        updateTitle();
     }
 
     public void onButtonFinishClicked(View v) {
         finish();
+    }
+
+    private void updateTitle() {
+        binding.actionbar.setTitle(getString(R.string.step_detail_title_count_format, currentStep + 1));
     }
 
     private void showOrHideNavButtons() {

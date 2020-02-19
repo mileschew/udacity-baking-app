@@ -19,7 +19,7 @@ public class BakingAppWidgetProvider extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.view_widget);
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-            views.setOnClickPendingIntent(R.id.widget_blue, pendingIntent);
+            views.setOnClickPendingIntent(R.id.widget_launch, pendingIntent);
             appWidgetManager.updateAppWidget(widgetId, views);
         }
     }
