@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ryuta.baking.R;
-import com.ryuta.baking.databinding.RecyclerviewItemRecipeBinding;
+import com.ryuta.baking.databinding.ItemRecipeBinding;
 import com.ryuta.baking.models.Recipe;
 import com.ryuta.baking.util.MediaUtil;
 
@@ -32,7 +32,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        RecyclerviewItemRecipeBinding binding = DataBindingUtil.inflate(inflater, R.layout.recyclerview_item_recipe, parent, false);
+        ItemRecipeBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_recipe, parent, false);
         return new RecipeViewHolder(binding, onRecipeClickListener);
     }
 
@@ -47,10 +47,10 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     }
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private RecyclerviewItemRecipeBinding binding;
+        private ItemRecipeBinding binding;
         private OnRecipeClickListener clickListener;
 
-        RecipeViewHolder(RecyclerviewItemRecipeBinding binding, OnRecipeClickListener clickListener) {
+        RecipeViewHolder(ItemRecipeBinding binding, OnRecipeClickListener clickListener) {
             super(binding.getRoot());
             this.binding = binding;
             this.clickListener = clickListener;

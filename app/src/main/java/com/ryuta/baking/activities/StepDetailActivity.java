@@ -88,7 +88,11 @@ public class StepDetailActivity extends AppCompatActivity {
     }
 
     private void updateTitle() {
-        binding.actionbar.setTitle(getString(R.string.step_detail_title_count_format, currentStep + 1));
+        binding.actionbar.setTitle(
+                currentStep == 0
+                        ? getString(R.string.step_detail_title_intro)
+                        : getString(R.string.step_detail_title_count_format, currentStep)
+        );
     }
 
     private void showOrHideNavButtons() {

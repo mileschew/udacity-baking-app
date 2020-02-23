@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ryuta.baking.R;
-import com.ryuta.baking.databinding.RecyclerviewItemStepBinding;
+import com.ryuta.baking.databinding.ItemStepBinding;
 import com.ryuta.baking.models.Step;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
     @Override
     public StepViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        RecyclerviewItemStepBinding binding = DataBindingUtil.inflate(inflater, R.layout.recyclerview_item_step, parent, false);
+        ItemStepBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_step, parent, false);
         return new StepViewHolder(binding, onStepClickedListener);
     }
 
@@ -43,10 +43,10 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
     }
 
     public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private RecyclerviewItemStepBinding binding;
+        private ItemStepBinding binding;
         private OnStepClickedListener onStepClickedListener;
 
-        StepViewHolder(RecyclerviewItemStepBinding binding, OnStepClickedListener onStepClickedListener) {
+        StepViewHolder(ItemStepBinding binding, OnStepClickedListener onStepClickedListener) {
             super(binding.getRoot());
             this.binding = binding;
             this.onStepClickedListener = onStepClickedListener;

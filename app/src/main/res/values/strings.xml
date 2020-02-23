@@ -12,6 +12,7 @@
     <string name="ingredient_youll_need">You\'ll Need:</string>
     <string name="ingredient_quantity_measurement_format">%1$d %2$s</string>
 
+    <string name="step_detail_title_intro">Introduction</string>
     <string name="step_detail_title_count_format">Step %1$d</string>
     <string name="step_detail_description_error">no description</string>
     <string name="step_detail_button_previous">Prev</string>

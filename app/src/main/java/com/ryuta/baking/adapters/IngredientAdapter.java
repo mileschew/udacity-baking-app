@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ryuta.baking.R;
-import com.ryuta.baking.databinding.RecyclerviewItemIngredientBinding;
+import com.ryuta.baking.databinding.ItemIngredientBinding;
 import com.ryuta.baking.models.Ingredient;
 
 import java.util.List;
@@ -28,8 +28,8 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     @Override
     public IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        RecyclerviewItemIngredientBinding binding =
-                DataBindingUtil.inflate(inflater, R.layout.recyclerview_item_ingredient, parent, false);
+        ItemIngredientBinding binding =
+                DataBindingUtil.inflate(inflater, R.layout.item_ingredient, parent, false);
         return new IngredientViewHolder(binding);
     }
 
@@ -46,9 +46,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     }
 
     class IngredientViewHolder extends RecyclerView.ViewHolder {
-        private RecyclerviewItemIngredientBinding binding;
+        private ItemIngredientBinding binding;
 
-        IngredientViewHolder(@NonNull RecyclerviewItemIngredientBinding binding) {
+        IngredientViewHolder(@NonNull ItemIngredientBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
