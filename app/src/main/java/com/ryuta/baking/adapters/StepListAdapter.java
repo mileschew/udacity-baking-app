@@ -18,6 +18,7 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
 
     private List<Step> steps;
     private OnStepClickedListener onStepClickedListener;
+    private int selectedIndex = -1;
 
     public StepListAdapter(List<Step> steps, OnStepClickedListener onStepClickedListener) {
         this.steps = steps;
@@ -35,6 +36,7 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
     @Override
     public void onBindViewHolder(@NonNull StepViewHolder holder, int position) {
         holder.bind(steps.get(position).getShortDescription());
+        holder.itemView.setSelected(position == selectedIndex);
     }
 
     @Override
@@ -59,6 +61,9 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
 
         @Override
         public void onClick(View v) {
+            notifyItemChanged(selectedIndex);
+            selectedIndex = getAdapterPosition();
+            notifyItemChanged(selectedIndex);
             onStepClickedListener.onStepClicked(getAdapterPosition());
         }
     }

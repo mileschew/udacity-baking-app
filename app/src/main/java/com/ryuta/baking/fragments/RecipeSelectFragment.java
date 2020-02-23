@@ -37,8 +37,10 @@ public class RecipeSelectFragment extends Fragment implements RecipeListAdapter.
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_select, container, false);
         binding.setViewModel(RecipeSelectViewModel.get(getActivity()));
 
+        int columns = getArguments().getInt(KEY_COLUMNS, 1);
+
         // init layout manager
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(),  1);
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(),  columns);
         binding.rvRecipes.setLayoutManager(manager);
         binding.rvRecipes.setHasFixedSize(true);
 
