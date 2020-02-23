@@ -32,7 +32,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <LinearLayout
-            android:id="@+id/other"
+            android:id="@+id/navigation"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

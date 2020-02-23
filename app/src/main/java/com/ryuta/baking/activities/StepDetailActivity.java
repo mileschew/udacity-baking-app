@@ -23,7 +23,7 @@ public class StepDetailActivity extends AppCompatActivity {
     private static final String KEY_STEP = "step";
 
     private ActivityStepDetailBinding binding;
-    private int currentStep;
+    private int currentStep = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,37 +36,39 @@ public class StepDetailActivity extends AppCompatActivity {
         Recipe selectedRecipe = (Recipe) intent.getSerializableExtra(KEY_RECIPE);
         currentStep = intent.getIntExtra(KEY_STEP, 0);
         if (selectedRecipe == null) return;     // error
-        binding.setViewModel(RecipeDetailViewModel.get(this, selectedRecipe));
 
-        binding.getViewModel().selectStep(currentStep);
+        binding.setViewModel(RecipeDetailViewModel.get(this, selectedRecipe));
+        if (binding.getViewModel().getCurrentStep().getValue() == null) {   // coming from RecipeDetailActivity
+            binding.getViewModel().selectStep(currentStep);
+        }
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.step_detail_container, StepDetailFragment.newInstance())
                 .commit();
 
         if (getResources().getBoolean(R.bool.isLandscape)) {    // Landscape layout
             // make fragment immersive full screen
-            binding.other.setVisibility(View.GONE);
+            binding.actionbar.setVisibility(View.GONE);
+            binding.navigation.setVisibility(View.GONE);
             getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-            getSupportActionBar().hide();
+                    View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE);
         } else {        // Portrait layout
-            binding.getViewModel().getCurrentStep().observe(this, new Observer<Step>() {
+            // Set up toolbar
+            updateTitle();
+            setSupportActionBar(binding.actionbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            binding.actionbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onChanged(Step step) {
-                    showOrHideNavButtons();
+                public void onClick(View v) {
+                    onBackPressed();
                 }
             });
         }
 
-        // Set up toolbar
-        updateTitle();
-        setSupportActionBar(binding.actionbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        binding.actionbar.setNavigationOnClickListener(new View.OnClickListener() {
+        binding.getViewModel().getCurrentStep().observe(this, new Observer<Step>() {
             @Override
-            public void onClick(View v) {
-                onBackPressed();
+            public void onChanged(Step step) {
+                showOrHideNavButtons();
             }
         });
     }
@@ -96,19 +98,21 @@ public class StepDetailActivity extends AppCompatActivity {
     }
 
     private void showOrHideNavButtons() {
-        if (binding.getViewModel().hasPreviousStep()) {
-            binding.btnPrev.setVisibility(View.VISIBLE);
-            binding.viewNavSpace.setVisibility(View.VISIBLE);
-        } else {
-            binding.viewNavSpace.setVisibility(View.GONE);
-            binding.btnPrev.setVisibility(View.GONE);
-        }
-        if (binding.getViewModel().hasNextStep()) {
-            binding.btnNext.setVisibility(View.VISIBLE);
-            binding.btnFin.setVisibility(View.GONE);
-        } else {
-            binding.btnNext.setVisibility(View.GONE);
-            binding.btnFin.setVisibility(View.VISIBLE);
+        if (binding.navigation.getVisibility() == View.VISIBLE) {
+            if (binding.getViewModel().hasPreviousStep()) {
+                binding.btnPrev.setVisibility(View.VISIBLE);
+                binding.viewNavSpace.setVisibility(View.VISIBLE);
+            } else {
+                binding.viewNavSpace.setVisibility(View.GONE);
+                binding.btnPrev.setVisibility(View.GONE);
+            }
+            if (binding.getViewModel().hasNextStep()) {
+                binding.btnNext.setVisibility(View.VISIBLE);
+                binding.btnFin.setVisibility(View.GONE);
+            } else {
+                binding.btnNext.setVisibility(View.GONE);
+                binding.btnFin.setVisibility(View.VISIBLE);
+            }
         }
     }
 

@@ -77,7 +77,7 @@ public class MainActivityTest {
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.btn_next), withText("Next"),
                         childAtPosition(
-                                allOf(withId(R.id.other),
+                                allOf(withId(R.id.navigation),
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
@@ -89,7 +89,7 @@ public class MainActivityTest {
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(R.id.btn_prev), withText("Prev"),
                         childAtPosition(
-                                allOf(withId(R.id.other),
+                                allOf(withId(R.id.navigation),
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
@@ -151,7 +151,7 @@ public class MainActivityTest {
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.btn_fin), withText("Finish"),
                         childAtPosition(
-                                allOf(withId(R.id.other),
+                                allOf(withId(R.id.navigation),
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),

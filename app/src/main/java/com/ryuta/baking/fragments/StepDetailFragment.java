@@ -42,7 +42,8 @@ public class StepDetailFragment extends Fragment {
                 if (exoPlayer != null) {
                     exoPlayer.stop();
                 }
-                if (!getResources().getBoolean(R.bool.isLandscape)) {
+                if (!getResources().getBoolean(R.bool.isLandscape)
+                        || getResources().getBoolean(R.bool.isTablet)) {
                     binding.tvDescription.setText(step.getDescription());
                     attemptLoadThumbnail(step.getThumbnailURL());
                 }
