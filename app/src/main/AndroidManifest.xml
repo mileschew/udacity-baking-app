@@ -26,7 +26,9 @@
         <activity android:name=".activities.StepDetailActivity"
             android:theme="@style/NoActionBar"/>
 
-        <activity android:name=".widget.WidgetConfigActivity">
+        <!--    Widget    -->
+        <activity android:name=".widget.WidgetConfigActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
@@ -38,7 +40,9 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/appwidget_info" />
         </receiver>
-        <service android:name=".widget.RecipeService"/>
+        <service android:name=".widget.RecipeWidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>

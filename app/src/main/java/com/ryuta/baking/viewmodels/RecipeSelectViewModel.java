@@ -10,7 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.ryuta.baking.models.Recipe;
-import com.ryuta.baking.util.StringUtil;
+import com.ryuta.baking.util.RecipeRepository;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class RecipeSelectViewModel extends AndroidViewModel {
 
     public RecipeSelectViewModel(@NonNull Application application) {
         super(application);
-        recipes = StringUtil.getRecipesFromJson(application.getBaseContext());
+        recipes = RecipeRepository.getRecipes(application.getBaseContext());
         recipesLiveData.setValue(recipes);
     }
 

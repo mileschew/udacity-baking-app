@@ -18,4 +18,7 @@
     <string name="step_detail_button_previous">Prev</string>
     <string name="step_detail_button_next">Next</string>
     <string name="step_detail_button_finish">Finish</string>
+
+    <string name="widget_recipe_select_title">Select a Recipe for the Widget</string>
+    <string name="widget_empty_list">No Steps</string>
 </resources>
